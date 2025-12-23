@@ -28,13 +28,13 @@ $adminName = $_SESSION['admin_name'] ?? 'Administrator';
 
     <nav class="sidebar-nav">
         <?php foreach ($sections as $key => $labels): ?>
-            <button type="button"
-                class="nav-btn"
+            <a href="dashboard.php?page=<?php echo $key; ?>"
+                class="nav-btn <?php echo ($page ?? 'dashboard') === $key ? 'active' : ''; ?>"
                 data-section="<?php echo $key; ?>"
                 data-i18n="nav-<?php echo $key; ?>">
                 <i data-lucide="<?php echo $labels['icon']; ?>"></i>
                 <span><?php echo sanitize_string($labels[$lang] ?? $labels['sq']); ?></span>
-            </button>
+            </a>
         <?php endforeach; ?>
     </nav>
 

@@ -16,11 +16,8 @@ require_once __DIR__ . '/../../includes/csrf.php';
 
 // Ensure session is started for email sending
 if (session_status() === PHP_SESSION_NONE) {
-<<<<<<< HEAD
     // Session should have been started by includes/session.php included above
     // If not, we start it here, but it's unlikely given lines 11-12
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     session_start();
 }
 
@@ -54,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ipAddress = get_client_ip();
     $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
-<<<<<<< HEAD
     if ($action === 'signup') {
         $username = trim((string) ($payload['username'] ?? ''));
         $email = trim((string) ($payload['email'] ?? ''));
@@ -90,8 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         json_response(['status' => 'ok', 'message' => 'Kërkesa u dërgua. Prisni aprovimin nga administratori.']);
     }
 
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     if ($action === 'login') {
         $identifier = trim((string) ($payload['username'] ?? $payload['email'] ?? $_POST['username'] ?? $_POST['email'] ?? ''));
         $password = (string) ($payload['password'] ?? $_POST['password'] ?? '');
@@ -120,7 +114,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             record_login_attempt($identifier, $ipAddress, false);
             json_response(['error' => 'invalid_credentials', 'message' => 'Invalid username or password'], 401);
         }
-<<<<<<< HEAD
 
         // Check if account is pending or rejected
         if (isset($admin['status']) && $admin['status'] !== 'active') {
@@ -131,8 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 json_response(['error' => 'account_rejected', 'message' => 'Kërkesa juaj për regjistrim është refuzuar.'], 403);
             }
         }
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         
         // Check if account is locked
         if (is_account_locked($admin)) {

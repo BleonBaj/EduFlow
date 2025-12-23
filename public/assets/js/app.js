@@ -146,10 +146,7 @@ const App = (() => {
       'action-save-settings': 'Ruaj ndryshimet',
       'action-edit': 'Ndrysho',
       'action-delete': 'Fshi',
-<<<<<<< HEAD
       'confirm-delete': 'A jeni i sigurt që doni të fshini këtë element?',
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
       'action-print': 'Printo',
       'label-course-name': 'Emri i kursit',
       'label-course-level': 'Niveli',
@@ -371,10 +368,7 @@ const App = (() => {
       'action-save-settings': 'Save changes',
       'action-edit': 'Edit',
       'action-delete': 'Delete',
-<<<<<<< HEAD
       'confirm-delete': 'Are you sure you want to delete this item?',
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
       'action-print': 'Print',
       'label-course-name': 'Course name',
       'label-course-level': 'Level',
@@ -648,7 +642,6 @@ const App = (() => {
   };
 
   const bindNav = () => {
-<<<<<<< HEAD
     // Use delegation for better stability
     document.addEventListener('click', (e) => {
         const btn = e.target.closest('.nav-btn');
@@ -657,12 +650,6 @@ const App = (() => {
         const target = btn.dataset.section;
         if (!target) return;
 
-=======
-    const buttons = document.querySelectorAll('.nav-btn');
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const target = btn.dataset.section;
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         if (target === 'settings') {
           // Always require PIN on entry
           state.settingsUnlocked = false;
@@ -670,7 +657,6 @@ const App = (() => {
           openSettingsUnlockModal();
           return;
         }
-<<<<<<< HEAD
 
         // For other sections, clear unlock state
         state.settingsUnlocked = false; 
@@ -681,12 +667,6 @@ const App = (() => {
         if (window.innerWidth <= 900) {
             document.body.classList.remove('sidebar-open');
         }
-=======
-        // Leaving settings clears unlock
-        state.settingsUnlocked = false; state.settingsPin = '';
-        activateSection(target);
-      });
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     });
   };
 
@@ -814,7 +794,6 @@ const App = (() => {
   const closeSimpleModal = (id) => { document.querySelector(`#${id}`)?.classList.remove('active'); };
 
   const openSettingsUnlockModal = () => {
-<<<<<<< HEAD
     // Force find modal
     const modal = document.getElementById('modal-settings-unlock');
     if (!modal) {
@@ -833,62 +812,17 @@ const App = (() => {
     }
 
     modal.classList.add('active');
-=======
-    // Do NOT activate the settings section yet; only open the unlock modal.
-    // The section will be activated after a successful PIN entry.
-
-    const modal = document.querySelector('#modal-settings-unlock');
-    const form = document.querySelector('#form-settings-unlock');
-
-    if (modal && form) {
-      // Find and recreate PIN input to prevent browser from remembering
-      const pinInput = form.querySelector('input[name="pin"]');
-      if (pinInput) {
-        const parent = pinInput.parentElement;
-        const label = pinInput.previousElementSibling;
-        const help = pinInput.nextElementSibling;
-
-        // Create new input element
-        const newInput = document.createElement('input');
-        newInput.type = 'password';
-        newInput.name = 'pin';
-        newInput.setAttribute('autocomplete', 'new-password');
-        newInput.setAttribute('autocomplete', 'off');
-        newInput.placeholder = 'PASSCODE';
-        newInput.required = true;
-
-        // Replace old input with new one
-        pinInput.remove();
-        if (help) {
-          parent.insertBefore(newInput, help);
-        } else {
-          parent.appendChild(newInput);
-        }
-
-        // Clear value
-        newInput.value = '';
-      }
-    }
-
-    openSimpleModal('modal-settings-unlock');
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
 
     // Focus on input after modal opens
     setTimeout(() => {
       const pinInput = form?.querySelector('input[name="pin"]');
       if (pinInput) {
         pinInput.focus();
-<<<<<<< HEAD
         pinInput.value = ''; // Ensure clear
-=======
-        // Clear one more time after focus (in case browser autofilled)
-        pinInput.value = '';
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
       }
     }, 100);
   };
 
-<<<<<<< HEAD
   const loadSignupRequests = async () => {
     const tableBody = document.querySelector('#signup-requests-table tbody');
     if (!tableBody) return;
@@ -946,8 +880,6 @@ const App = (() => {
     }
   };
 
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
   const bindSettingsUnlockModal = () => {
     const modal = document.querySelector('#modal-settings-unlock');
     if (!modal) return;
@@ -992,47 +924,31 @@ const App = (() => {
       }
 
       try {
-<<<<<<< HEAD
         const btn = form.querySelector('button[type="submit"]');
         if(btn) { btn.disabled = true; btn.textContent = 'Duke verifikuar...'; }
 
         await apiFetch('api/settings.php?pin=' + encodeURIComponent(pin));
         
-=======
-        await apiFetch('api/settings.php?pin=' + encodeURIComponent(pin));
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         state.settingsUnlocked = true;
         state.settingsPin = pin;
 
         // Clear PIN input after successful verification
         pinInput.value = '';
-<<<<<<< HEAD
         
         closeSimpleModal('modal-settings-unlock');
         activateSection('settings');
         loadSignupRequests();
-=======
-        form.reset();
-
-        closeSimpleModal('modal-settings-unlock');
-        activateSection('settings');
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         showToast('success', 'Settings u hapën me sukses');
       } catch (err) {
         console.error('Settings unlock error:', err);
         // Show specific error message
         if (err?.error === 'invalid_pin') {
-<<<<<<< HEAD
           showToast('error', 'PIN i pasaktë. Provoni përsëri.');
-=======
-          showToast('error', 'PIN i pasaktë. Provoni përsëri ose përdorni fjalëkalimin e login-it nëse nuk keni vendosur PIN.');
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         } else if (err?.error === 'settings_locked') {
           showToast('error', 'PIN kërkohet për të hyrë në settings');
         } else if (err?.message) {
           showToast('error', err.message);
         } else {
-<<<<<<< HEAD
           showToast('error', 'PIN i pasaktë ose gabim në server.');
         }
         // Do NOT clear PIN input on error, let user correct it
@@ -1043,15 +959,6 @@ const App = (() => {
       } finally {
          const btn = form.querySelector('button[type="submit"]');
          if(btn) { btn.disabled = false; btn.textContent = 'Hap'; }
-=======
-          showToast('error', 'PIN i pasaktë. Provoni përsëri.');
-        }
-        // Clear PIN input on error too
-        if (pinInput) {
-          pinInput.value = '';
-          pinInput.focus();
-        }
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
       }
     };
 
@@ -1208,11 +1115,7 @@ const App = (() => {
           { key: 'class', label: t('table-class') },
           { key: 'month', label: t('table-month') },
           { key: 'paid', label: t('label-paid') },
-<<<<<<< HEAD
           { key: 'status', label: t('table-status'), options: ['paid', 'partial', 'due'] },
-=======
-          { key: 'status', label: t('table-status') },
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
           { key: 'confirmed', label: t('table-confirmed') },
           { key: '_receipt', label: t('table-receipt'), readonly: true },
         ]
@@ -1225,11 +1128,7 @@ const App = (() => {
           { key: 'month', label: t('table-month') },
           { key: 'paid', label: 'Paga' },
           { key: 'advances', label: t('table-advances') },
-<<<<<<< HEAD
           { key: 'status', label: t('table-status'), options: ['paid', 'partial', 'due'] },
-=======
-          { key: 'status', label: t('table-status') },
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
           { key: '_receipt', label: t('table-receipt'), readonly: true },
         ]
       },
@@ -1246,16 +1145,12 @@ const App = (() => {
     const ths = Array.from(headerRow.querySelectorAll('th')).filter(th => !th.hasAttribute('data-select-col'));
     const onInput = debounce((e) => {
       const target = e.target;
-<<<<<<< HEAD
       if (!(target instanceof HTMLInputElement || target instanceof HTMLSelectElement)) return;
       
       // Additional safety: ignore input if it happened while readonly (autofill sometimes bypasses this, but good to have)
       // Only for text inputs, not selects
       if (target.type === 'text' && target.readOnly) return;
 
-=======
-      if (!(target instanceof HTMLInputElement)) return;
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
       const token = target.getAttribute('data-col-filter') || '';
       const [sc, key] = token.split(':');
       if (!sc || !key) return;
@@ -1288,7 +1183,6 @@ const App = (() => {
         label.textContent = col.label;
       }
       if (!input) {
-<<<<<<< HEAD
         // If col.options exists, create a SELECT instead of INPUT
         if (col.options && Array.isArray(col.options)) {
             input = document.createElement('select');
@@ -1452,50 +1346,6 @@ const App = (() => {
           input.value = val;
       }
       
-=======
-        input = document.createElement('input');
-        input.type = 'text';
-        input.setAttribute('data-inline-filter', '');
-        input.setAttribute('data-col-filter', `${scope}:${col.key}`);
-        // Overlay styles (no borders, invisible until focus/value)
-        Object.assign(input.style, {
-          position: 'absolute',
-          inset: '0',
-          width: '100%',
-          height: '100%',
-          padding: '0.75rem 1rem',
-          border: 'none',
-          outline: 'none',
-          background: 'transparent',
-          font: 'inherit',
-          letterSpacing: '0.05em',
-          fontWeight: '700',
-          textTransform: 'uppercase',
-          color: 'inherit',
-          opacity: '0',
-        });
-        // Keep UX: clicking header focuses input
-        th.style.cursor = 'text';
-        th.appendChild(input);
-        // Events
-        th.addEventListener('click', () => { input.focus(); });
-        input.addEventListener('input', onInput);
-        input.addEventListener('focus', () => {
-          input.style.opacity = '1';
-          if (label) label.style.visibility = 'hidden';
-        });
-        input.addEventListener('blur', () => {
-          const val = (input.value || '').trim();
-          if (val === '') {
-            input.style.opacity = '0';
-            if (label) label.style.visibility = 'visible';
-          }
-        });
-      }
-      // Sync value and visibility on rerender
-      const val = state.filters.columns[scope]?.[col.key] || '';
-      input.value = val;
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
       if ((val || '').trim() !== '') {
         input.style.opacity = '1';
         if (label) label.style.visibility = 'hidden';
@@ -1503,10 +1353,7 @@ const App = (() => {
         input.style.opacity = document.activeElement === input ? '1' : '0';
         if (label && document.activeElement !== input) label.style.visibility = 'visible';
       }
-<<<<<<< HEAD
       */
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     });
   };
 
@@ -2209,14 +2056,11 @@ const App = (() => {
           showToast('error', 'Asnjë rresht i selektuar.');
           return;
         }
-<<<<<<< HEAD
 
         if (!confirm(t('confirm-delete') || 'A jeni i sigurt që doni të fshini këtë element?')) {
           return;
         }
         
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         const mode = 'delete';
         let pin = null;
 
@@ -2876,7 +2720,6 @@ const App = (() => {
             closeModal(modal);
           }
           await loadDashboardData();
-<<<<<<< HEAD
           
           // Re-render specifically the current active section to ensure view is updated
           const activeSection = document.querySelector('.section.active');
@@ -2888,8 +2731,6 @@ const App = (() => {
                 setTimeout(() => renderPayments(), 50);
             }
           }
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         } catch (error) {
           console.error('Form submission error:', error);
 
@@ -3500,12 +3341,9 @@ const App = (() => {
       }
 
       if (action === 'delete') {
-<<<<<<< HEAD
         if (!confirm(t('confirm-delete') || 'A jeni i sigurt që doni të fshini këtë element?')) {
           return;
         }
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         const mode = 'delete';
         let pin = null;
 
@@ -4448,13 +4286,8 @@ const App = (() => {
       state.data.settings = management.settings || state.data.settings;
 
       const [payments, salaries] = await Promise.all([
-<<<<<<< HEAD
         apiFetch('api/payments.php?t=' + Date.now()),
         apiFetch('api/salaries.php?t=' + Date.now()),
-=======
-        apiFetch('api/payments.php'),
-        apiFetch('api/salaries.php'),
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
       ]);
 
       // Be resilient to API response shapes (array, {data:[]}, {invoices:[]}, {rows:[]})
@@ -4465,12 +4298,9 @@ const App = (() => {
       };
       state.data.invoices = normalizeList(payments);
       state.data.salaries = normalizeList(salaries);
-<<<<<<< HEAD
       
       console.log('Salaries loaded:', state.data.salaries); // Debug
 
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
 
       // Keep recent meta consistent with fetched invoices
       pruneRecentInvoiceMeta((state.data.invoices || []).map(i => i.public_id));
@@ -5013,20 +4843,7 @@ const App = (() => {
     const totalStudents = students.length;
     const totalProfessors = professors.length;
 
-<<<<<<< HEAD
     // Render stats with staggered animation (Removed Debt and Salary cards)
-=======
-    // Calculate total debt (unpaid invoices)
-    const totalDebt = invoices
-      .filter(inv => inv.status === 'due' || inv.status === 'partial')
-      .reduce((sum, inv) => sum + (parseFloat(inv.due_amount || 0) - parseFloat(inv.paid_amount || 0)), 0);
-
-    // Calculate total salary balance
-    const totalSalaryBalance = salaries
-      .reduce((sum, sal) => sum + parseFloat(sal.amount || 0), 0);
-
-    // Render stats with staggered animation
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     statsContainer.innerHTML = `
       <div class="stat-card" data-stat="courses">
         <div class="stat-icon"><i data-lucide="graduation-cap"></i></div>
@@ -5056,23 +4873,6 @@ const App = (() => {
           <div class="stat-label">${t('registrations-professors')}</div>
         </div>
       </div>
-<<<<<<< HEAD
-=======
-      <div class="stat-card" data-stat="debt">
-        <div class="stat-icon"><i data-lucide="credit-card"></i></div>
-        <div class="stat-content">
-          <div class="stat-value">${formatCurrency(totalDebt)}</div>
-          <div class="stat-label">${t('management-debts')}</div>
-        </div>
-      </div>
-      <div class="stat-card" data-stat="salary">
-        <div class="stat-icon"><i data-lucide="briefcase"></i></div>
-        <div class="stat-content">
-          <div class="stat-value">${formatCurrency(totalSalaryBalance)}</div>
-          <div class="stat-label">${t('salaries-title')}</div>
-        </div>
-      </div>
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     `;
 
     // Initialize Lucide icons after rendering
@@ -5080,7 +4880,6 @@ const App = (() => {
       lucide.createIcons();
     }
 
-<<<<<<< HEAD
     // --- Charts Integration ---
     const initCharts = () => {
       // Debug logs
@@ -5283,8 +5082,6 @@ const App = (() => {
       setTimeout(() => clearInterval(chartInterval), 10000);
     }
 
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     // Bind quick actions
     const quickActions = document.querySelectorAll('[data-quick-action]');
     quickActions.forEach(btn => {
@@ -5800,10 +5597,7 @@ const App = (() => {
             <td>${invoice.student_public_id}</td>
             <td>${invoice.class_public_id}</td>
             <td>${invoice.plan_month.includes('…') ? invoice.plan_month : formatMonth(invoice.plan_month)}</td>
-<<<<<<< HEAD
             <td>${formatCurrency(invoice.due_amount)}</td>
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
             <td>${formatCurrency(invoice.paid_amount)}</td>
             <td><span class="status-chip ${statusClass}">${t('status-' + invoice.status)}</span></td>
             <td>${invoice.confirmed_at ? formatDate(invoice.confirmed_at) : '—'}</td>
@@ -6090,7 +5884,6 @@ const App = (() => {
       state.filters.salaries.dateFrom = state.filters.salaries.dateTo;
       state.filters.salaries.dateTo = tmp;
     }
-<<<<<<< HEAD
 
     console.log('Rendering salaries with data:', state.data.salaries);
 
@@ -6127,21 +5920,6 @@ const App = (() => {
         const statusKey = 'status-' + (salary.status || 'due');
         const statusLabel = i18n[state.lang]?.[statusKey] || statusKey;
         
-=======
-    const rows = state.data.salaries
-      .filter((salary) => {
-        if (!dateFrom && !dateTo) return true;
-        const dateStr = salary.created_at || (salary.pay_month ? `${salary.pay_month}-01` : '');
-        if (!dateStr) return true;
-        const d = toDateObj(dateStr);
-        if (!d) return true;
-        const fromOk = dateFrom ? (d >= new Date(`${dateFrom}T00:00:00`)) : true;
-        const toOk = dateTo ? (d <= new Date(`${dateTo}T23:59:59`)) : true;
-        return fromOk && toOk;
-      })
-      .filter((salary) => {
-        const monthLabel = formatMonth(salary.pay_month);
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         return (
           textIncludes(salary.public_id, cf.id) &&
           textIncludes(salary.professor_public_id, cf.professor) &&
@@ -6149,7 +5927,6 @@ const App = (() => {
           textIncludes(monthLabel, cf.month) &&
           textIncludes(formatCurrency(salary.paid_amount), cf.paid) &&
           textIncludes(formatCurrency(salary.advances), cf.advances) &&
-<<<<<<< HEAD
           textIncludes(statusLabel, cf.status)
         );
       });
@@ -6157,21 +5934,12 @@ const App = (() => {
     if (rows.length === 0) {
       console.log('No salary rows after filtering');
       tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 1rem;">Nuk u gjetën të dhëna (Data: ${state.data.salaries?.length || 0}, Filtered: 0)</td></tr>`;
-=======
-          textIncludes(t('status-' + salary.status), cf.status)
-        );
-      });
-
-    if (!rows.length) {
-      tbody.innerHTML = `<tr><td colspan="8">—</td></tr>`;
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
       return;
     }
 
     tbody.innerHTML = rows
       .map((salary) => {
         const statusClass = salary.status === 'paid' ? 'paid' : salary.status === 'partial' ? 'partial' : 'due';
-<<<<<<< HEAD
         const pagaNow = formatCurrency(salary.paid_amount);
         
         // Resolve names safely
@@ -6189,15 +5957,6 @@ const App = (() => {
             <td>${salary.public_id}</td>
             <td>${profName}</td>
             <td>${className}</td>
-=======
-        // In list, "Paga" should display the payment made now (paid_amount), not the base
-        const pagaNow = formatCurrency(salary.paid_amount);
-        return `
-          <tr data-entity="salary" data-id="${salary.public_id}" class="clickable-row" title="Kliko për detajet">
-            <td>${salary.public_id}</td>
-            <td>${salary.professor_public_id}</td>
-            <td>${salary.class_public_id || '—'}</td>
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
             <td>${formatMonth(salary.pay_month)}</td>
             <td>${pagaNow}</td>
             <td>${formatCurrency(salary.advances)}</td>
@@ -6705,11 +6464,8 @@ const App = (() => {
         if (!newPin) return;
         try {
           await apiFetch('api/settings.php', { method: 'POST', body: { group: 'security', key: 'management_pin', value: newPin, pin: state.settingsPin } });
-<<<<<<< HEAD
           // Update session pin
           state.settingsPin = newPin;
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
           showToast('success', 'PASSCODE u ndryshua');
           closeSimpleModal('modal-pin-management');
           pinMgmtForm.reset();

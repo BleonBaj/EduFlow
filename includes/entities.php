@@ -942,11 +942,7 @@ function update_invoice(array $admin, string $publicId, array $payload): array {
     $hasNotes = table_has_column($pdo, 'student_invoices', 'notes');
     $hasTax = table_has_column($pdo, 'student_invoices', 'tax');
     if ($hasNotes && $hasTax) {
-<<<<<<< HEAD
         $stmt = $pdo->prepare('UPDATE student_invoices SET plan_month=:month, due_amount=:due, paid_amount=:paid, status=:status, tax=:tax, notes=:notes, confirmed_at = (CASE WHEN :status_check_1 = "paid" THEN NOW() ELSE confirmed_at END), confirmed_by = (CASE WHEN :status_check_2 = "paid" THEN :admin_id ELSE confirmed_by END) WHERE public_id=:pid');
-=======
-        $stmt = $pdo->prepare('UPDATE student_invoices SET plan_month=:month, due_amount=:due, paid_amount=:paid, status=:status, tax=:tax, notes=:notes, confirmed_at = (CASE WHEN :status_new = "paid" THEN NOW() ELSE confirmed_at END), confirmed_by = (CASE WHEN :status_new = "paid" THEN :admin_id ELSE confirmed_by END) WHERE public_id=:pid');
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         $stmt->execute([
             'month' => $payload['plan_month'] ?? date('Y-m'),
             'due' => $payload['due_amount'] ?? 0,
@@ -954,33 +950,21 @@ function update_invoice(array $admin, string $publicId, array $payload): array {
             'status' => $payload['status'] ?? 'due',
             'tax' => $payload['tax'] ?? 'none',
             'notes' => $payload['notes'] ?? null,
-<<<<<<< HEAD
             'status_check_1' => $payload['status'] ?? 'due',
             'status_check_2' => $payload['status'] ?? 'due',
-=======
-            'status_new' => $payload['status'] ?? 'due',
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
             'admin_id' => (int) $admin['id'],
             'pid' => $publicId,
         ]);
     } elseif ($hasTax) {
-<<<<<<< HEAD
         $stmt = $pdo->prepare('UPDATE student_invoices SET plan_month=:month, due_amount=:due, paid_amount=:paid, status=:status, tax=:tax, confirmed_at = (CASE WHEN :status_check_1 = "paid" THEN NOW() ELSE confirmed_at END), confirmed_by = (CASE WHEN :status_check_2 = "paid" THEN :admin_id ELSE confirmed_by END) WHERE public_id=:pid');
-=======
-        $stmt = $pdo->prepare('UPDATE student_invoices SET plan_month=:month, due_amount=:due, paid_amount=:paid, status=:status, tax=:tax, confirmed_at = (CASE WHEN :status_new = "paid" THEN NOW() ELSE confirmed_at END), confirmed_by = (CASE WHEN :status_new = "paid" THEN :admin_id ELSE confirmed_by END) WHERE public_id=:pid');
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         $stmt->execute([
             'month' => $payload['plan_month'] ?? date('Y-m'),
             'due' => $payload['due_amount'] ?? 0,
             'paid' => $payload['paid_amount'] ?? 0,
             'status' => $payload['status'] ?? 'due',
             'tax' => $payload['tax'] ?? 'none',
-<<<<<<< HEAD
             'status_check_1' => $payload['status'] ?? 'due',
             'status_check_2' => $payload['status'] ?? 'due',
-=======
-            'status_new' => $payload['status'] ?? 'due',
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
             'admin_id' => (int) $admin['id'],
             'pid' => $publicId,
         ]);
@@ -998,43 +982,27 @@ function update_invoice(array $admin, string $publicId, array $payload): array {
             $meta['tax'] = (string) $payload['tax'];
         }
         $notesToStore = $meta ? json_encode($meta, JSON_UNESCAPED_UNICODE) : null;
-<<<<<<< HEAD
         $stmt = $pdo->prepare('UPDATE student_invoices SET plan_month=:month, due_amount=:due, paid_amount=:paid, status=:status, notes=:notes, confirmed_at = (CASE WHEN :status_check_1 = "paid" THEN NOW() ELSE confirmed_at END), confirmed_by = (CASE WHEN :status_check_2 = "paid" THEN :admin_id ELSE confirmed_by END) WHERE public_id=:pid');
-=======
-        $stmt = $pdo->prepare('UPDATE student_invoices SET plan_month=:month, due_amount=:due, paid_amount=:paid, status=:status, notes=:notes, confirmed_at = (CASE WHEN :status_new = "paid" THEN NOW() ELSE confirmed_at END), confirmed_by = (CASE WHEN :status_new = "paid" THEN :admin_id ELSE confirmed_by END) WHERE public_id=:pid');
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         $stmt->execute([
             'month' => $payload['plan_month'] ?? date('Y-m'),
             'due' => $payload['due_amount'] ?? 0,
             'paid' => $payload['paid_amount'] ?? 0,
             'status' => $payload['status'] ?? 'due',
             'notes' => $notesToStore,
-<<<<<<< HEAD
             'status_check_1' => $payload['status'] ?? 'due',
             'status_check_2' => $payload['status'] ?? 'due',
-=======
-            'status_new' => $payload['status'] ?? 'due',
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
             'admin_id' => (int) $admin['id'],
             'pid' => $publicId,
         ]);
     } else {
-<<<<<<< HEAD
         $stmt = $pdo->prepare('UPDATE student_invoices SET plan_month=:month, due_amount=:due, paid_amount=:paid, status=:status, confirmed_at = (CASE WHEN :status_check_1 = "paid" THEN NOW() ELSE confirmed_at END), confirmed_by = (CASE WHEN :status_check_2 = "paid" THEN :admin_id ELSE confirmed_by END) WHERE public_id=:pid');
-=======
-        $stmt = $pdo->prepare('UPDATE student_invoices SET plan_month=:month, due_amount=:due, paid_amount=:paid, status=:status, confirmed_at = (CASE WHEN :status_new = "paid" THEN NOW() ELSE confirmed_at END), confirmed_by = (CASE WHEN :status_new = "paid" THEN :admin_id ELSE confirmed_by END) WHERE public_id=:pid');
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         $stmt->execute([
             'month' => $payload['plan_month'] ?? date('Y-m'),
             'due' => $payload['due_amount'] ?? 0,
             'paid' => $payload['paid_amount'] ?? 0,
             'status' => $payload['status'] ?? 'due',
-<<<<<<< HEAD
             'status_check_1' => $payload['status'] ?? 'due',
             'status_check_2' => $payload['status'] ?? 'due',
-=======
-            'status_new' => $payload['status'] ?? 'due',
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
             'admin_id' => (int) $admin['id'],
             'pid' => $publicId,
         ]);
@@ -1104,11 +1072,7 @@ function update_salary(array $admin, string $publicId, array $payload): array {
     $paidAmount = (float) ($payload['paid_amount'] ?? 0);
     $balance = $baseAmount - $advances - $paidAmount;
     
-<<<<<<< HEAD
     $stmt = $pdo->prepare('UPDATE salary_statements SET class_id=:cid, pay_month=:month, base_amount=:base, advances=:adv, paid_amount=:paid, balance=:balance, status=:status, confirmed_at = (CASE WHEN :status_check_1 = "paid" THEN NOW() ELSE confirmed_at END), confirmed_by = (CASE WHEN :status_check_2 = "paid" THEN :admin_id ELSE confirmed_by END) WHERE public_id=:pid');
-=======
-    $stmt = $pdo->prepare('UPDATE salary_statements SET class_id=:cid, pay_month=:month, base_amount=:base, advances=:adv, paid_amount=:paid, balance=:balance, status=:status, confirmed_at = (CASE WHEN :status_new = "paid" THEN NOW() ELSE confirmed_at END), confirmed_by = (CASE WHEN :status_new = "paid" THEN :admin_id ELSE confirmed_by END) WHERE public_id=:pid');
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     $stmt->execute([
         'cid' => $classId,
         'month' => $payload['pay_month'] ?? date('Y-m'),
@@ -1117,12 +1081,8 @@ function update_salary(array $admin, string $publicId, array $payload): array {
         'paid' => $paidAmount,
         'balance' => $balance,
         'status' => $payload['status'] ?? 'due',
-<<<<<<< HEAD
         'status_check_1' => $payload['status'] ?? 'due',
         'status_check_2' => $payload['status'] ?? 'due',
-=======
-        'status_new' => $payload['status'] ?? 'due',
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
         'admin_id' => (int) $admin['id'],
         'pid' => $publicId,
     ]);

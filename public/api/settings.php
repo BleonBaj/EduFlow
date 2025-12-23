@@ -6,7 +6,6 @@ $admin = require_authenticated_admin();
 
 // Support unlocking settings via GET ?pin=...
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-<<<<<<< HEAD
     $action = $_GET['action'] ?? '';
     if ($action === 'list_requests') {
         $pdo = get_db_connection();
@@ -15,8 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         json_response(['requests' => $stmt->fetchAll()]);
     }
 
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     $pin = isset($_GET['pin']) ? (string) $_GET['pin'] : '';
     if ($pin !== '') {
         ensure_settings_unlocked($admin, $pin);
@@ -29,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_csrf_token();
     
     $payload = get_request_payload();
-<<<<<<< HEAD
     
     // Handle Signup Requests
     if (isset($payload['action']) && $payload['action'] === 'handle_request') {
@@ -65,8 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         json_response(['status' => 'ok']);
     }
 
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     $group = $payload['group'] ?? '';
     $key = $payload['key'] ?? '';
     $value = $payload['value'] ?? '';
@@ -121,14 +115,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         json_response(['error' => 'invalid_key'], 400);
     }
 
-<<<<<<< HEAD
     // CRITICAL: Prevent management_pin from falling through to generic settings table
     if ($key === 'management_pin') {
         json_response(['error' => 'logic_error', 'message' => 'Security key handled incorrectly'], 500);
     }
 
-=======
->>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
     // Avoid deprecated VALUES() usage in newer MySQL by rebinding the value for UPDATE
     $stmt = $pdo->prepare('INSERT INTO settings (settings_group, setting_key, setting_value) VALUES (:g, :k, :v) ON DUPLICATE KEY UPDATE setting_value = :v_upd');
     $stmt->execute(['g' => $group, 'k' => $key, 'v' => $value, 'v_upd' => $value]);
