@@ -1,0 +1,82 @@
+# BTS Management System - .htaccess Configuration
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Redirect to public/ directory if accessing root
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # XSS Protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevent MIME sniffing
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Referrer Policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Protect sensitive files and directories
+<FilesMatch "^(config\.php|\.env|composer\.json|composer\.lock|package\.json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect .git directory
+# <DirectoryMatch "\.git">
+#     Order allow,deny
+#     Deny from all
+# </DirectoryMatch>
+
+# Protect includes directory from direct access
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^includes/ - [F,L]
+    RewriteRule ^database/ - [F,L]
+    RewriteRule ^storage/ - [F,L]
+</IfModule>
+
+# PHP Settings
+# <IfModule mod_php.c>
+#     # Session settings
+#     php_value session.cookie_httponly 1
+#     php_value session.cookie_secure 1
+#     php_value session.use_strict_mode 1
+#     
+#     # File uploads
+#     php_value upload_max_filesize 10M
+#     php_value post_max_size 10M
+#     
+#     # Error handling (disable in production)
+#     php_flag display_errors Off
+#     php_flag display_startup_errors Off
+#     php_value error_reporting E_ALL
+#     php_value log_errors On
+# </IfModule>
+
+# Cache Control for static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+</IfModule>
+
+# Compress text files
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Charset
+AddDefaultCharset UTF-8

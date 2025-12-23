@@ -1,0 +1,41 @@
+# BTS Management System - Public Directory .htaccess
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Remove trailing slashes
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+    
+    # Default document
+    DirectoryIndex index.php
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# PHP Settings
+# <IfModule mod_php.c>
+#     php_value session.cookie_httponly 1
+#     php_value session.use_strict_mode 1
+#     php_flag display_errors Off
+# </IfModule>
+
+# Protect uploads directory from executing PHP
+# <Directory "uploads">
+#     <FilesMatch "\.php$">
+#         Order allow,deny
+#         Deny from all
+#     </FilesMatch>
+# </Directory>
+
+# Allow access to all files in public directory
+<FilesMatch "\.(php|html|css|js|json|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>

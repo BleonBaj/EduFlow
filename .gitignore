@@ -1,0 +1,37 @@
+# Konfigurim
+config/config.php
+
+# Test files (should not be in production)
+public/test_*.php
+
+# Storage dhe Uploads
+storage/sessions/*
+!storage/sessions/.gitkeep
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Node modules
+node_modules/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.bak
+
+
