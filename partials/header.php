@@ -5,7 +5,11 @@ $lang = $config['app']['default_language'] ?? 'sq';
 $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '/'), '/\\') . '/';
 // Apply Content Security Policy via HTTP headers (meta can't set frame-ancestors)
 if (!headers_sent()) {
+<<<<<<< HEAD
   $csp = "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.googleusercontent.com; connect-src 'self' https://unpkg.com https://cdn.jsdelivr.net; base-uri 'self'; frame-ancestors 'none'; object-src 'none'";
+=======
+  $csp = "default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https://unpkg.com; base-uri 'self'; frame-ancestors 'none'; object-src 'none'";
+>>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
   header('Content-Security-Policy: ' . $csp);
   // For legacy browsers
   header('X-Frame-Options: DENY');

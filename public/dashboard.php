@@ -24,6 +24,7 @@ require_once __DIR__ . '/../partials/nav.php';
                 <!-- Stats will be loaded here -->
             </div>
 
+<<<<<<< HEAD
             <div class="dashboard-charts-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
                 <div class="card" style="padding: 1.5rem; height: 350px;">
                     <h4 style="margin: 0 0 1rem 0; font-size: 1.1rem; color: var(--text);">Studentë sipas Kurseve</h4>
@@ -39,6 +40,8 @@ require_once __DIR__ . '/../partials/nav.php';
                 </div>
             </div>
 
+=======
+>>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
             <div class="dashboard-quick-actions">
                 <h3 data-i18n="dashboard-quick-actions">Veprime të shpejta</h3>
                 <div class="quick-actions-grid">
@@ -87,6 +90,7 @@ require_once __DIR__ . '/../partials/nav.php';
             <div>
                 <h2>
                     <i data-lucide="bar-chart-3" class="section-icon"></i>
+<<<<<<< HEAD
                     <span>Raporte & Analiza</span>
                 </h2>
                 <p class="section-sub">Pasqyrë e detajuar financiare dhe akademike</p>
@@ -164,10 +168,22 @@ require_once __DIR__ . '/../partials/nav.php';
             </div>
 
             <!-- Detailed Tables -->
+=======
+                    <span>Raporte</span>
+                </h2>
+                <p class="section-sub">Pasqyrë financiare dhe performanca e klasave</p>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="reports-summary-grid" id="reports-summary"></div>
+            <div class="filters" id="reports-filters"></div>
+
+>>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
             <div class="reports-grid">
                 <div class="card">
                     <div class="card-header">
                         <div>
+<<<<<<< HEAD
                             <h4><i data-lucide="alert-circle" style="color: var(--danger); width: 20px;"></i> Faturat e vonuara (Top 10)</h4>
                             <p class="text-muted">Pagesat që kërkojnë vëmendje</p>
                         </div>
@@ -175,23 +191,70 @@ require_once __DIR__ . '/../partials/nav.php';
                              <button type="button" class="secondary small" onclick="exportTableToCSV('reports-overdue-table', 'faturat_vonesa.csv')">
                                 <i data-lucide="download"></i> CSV
                             </button>
+=======
+                            <h4>Faturat e vonuara</h4>
+                            <p class="text-muted">Plan mujor i kaluar, status jo “paid”</p>
+                        </div>
+                        <div class="card-actions">
+                            <button type="button" class="secondary" data-report-export="overdue">Eksporto CSV</button>
+>>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
                         </div>
                     </div>
                     <div class="table-wrapper compact">
                         <table id="reports-overdue-table">
                             <thead>
                                 <tr>
+<<<<<<< HEAD
+=======
+                                    <th>ID</th>
+>>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
                                     <th>Studenti</th>
                                     <th>Klasa</th>
                                     <th>Muaji</th>
                                     <th>Detyrimi</th>
                                     <th>Paguar</th>
+<<<<<<< HEAD
                                     <th>Mbetur</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- Populated by JS -->
                             </tbody>
+=======
+                                    <th>Statusi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h4>Performanca e klasave</h4>
+                            <p class="text-muted">Kapacitet, pagesa dhe orari</p>
+                        </div>
+                        <div class="card-actions">
+                            <button type="button" class="secondary" data-report-export="classes">Eksporto CSV</button>
+                        </div>
+                    </div>
+                    <div class="table-wrapper compact">
+                        <table id="reports-classes-table">
+                            <thead>
+                                <tr>
+                                    <th>Klasa</th>
+                                    <th>Kursi</th>
+                                    <th>Studentë</th>
+                                    <th>Profesorë</th>
+                                    <th>Pagesa mujore</th>
+                                    <th>Paguar</th>
+                                    <th>Detyrim</th>
+                                    <th>Orari</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+>>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
                         </table>
                     </div>
                 </div>
@@ -355,7 +418,10 @@ require_once __DIR__ . '/../partials/nav.php';
                             <th data-i18n="table-student">Studenti</th>
                             <th data-i18n="table-class">Klasa</th>
                             <th data-i18n="table-month">Muaji</th>
+<<<<<<< HEAD
                             <th data-i18n="label-due">Detyrimi</th>
+=======
+>>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
                             <th data-i18n="label-paid">Paguar</th>
                             <th data-i18n="table-status">Statusi</th>
                             <th data-i18n="table-confirmed">Konfirmuar</th>
@@ -468,6 +534,7 @@ require_once __DIR__ . '/../partials/nav.php';
                 </div>
 
                 <div class="settings-section">
+<<<<<<< HEAD
                     <h3 data-i18n="settings-users-title">Përdoruesit dhe Kërkesat</h3>
                     <div class="card">
                         <div class="card-header">
@@ -492,6 +559,21 @@ require_once __DIR__ . '/../partials/nav.php';
                                     </tr>
                                 </tbody>
                             </table>
+=======
+                    <h3 data-i18n="settings-app-title">Parametrat e aplikacionit</h3>
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="language_default" data-i18n="label-default-language">Gjuha e paracaktuar</label>
+                            <select id="language_default" name="language_default">
+                                <option value="sq">Shqip</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="currency" data-i18n="label-currency">Monedha</label>
+                            <input type="text" id="currency" name="currency" placeholder="EUR"
+                                data-i18n-placeholder="placeholder-currency">
+>>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
                         </div>
                     </div>
                 </div>
@@ -509,9 +591,12 @@ require_once __DIR__ . '/../partials/nav.php';
             </div>
         </div>
     </section>
+<<<<<<< HEAD
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="assets/js/reports.js"></script>
+=======
+>>>>>>> 190ce66b7421f3e7c9a1ea4b2fe0d41ddb7f6970
 </main>
 
 <?php require_once __DIR__ . '/../partials/footer.php'; ?>
